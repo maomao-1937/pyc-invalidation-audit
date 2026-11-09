@@ -1,0 +1,31 @@
+[
+  {
+    "name": "generate local caches",
+    "args": ["examples/make_fixtures.py"],
+    "exit": 0
+  },
+  {
+    "name": "timestamp match",
+    "args": ["pyc_invalidation_audit.py", "examples/generated/timestamp.pyc", "examples/sample.py"],
+    "exit": 0,
+    "report": {"status":"match","mode":"timestamp","mtime_match":true,"size_match":true}
+  },
+  {
+    "name": "checked hash match",
+    "args": ["pyc_invalidation_audit.py", "examples/generated/checked.pyc", "examples/sample.py"],
+    "exit": 0,
+    "report": {"status":"match","mode":"checked_hash","hash_match":true}
+  },
+  {
+    "name": "unchecked hash mismatch",
+    "args": ["pyc_invalidation_audit.py", "examples/generated/unchecked.pyc", "examples/generated/changed.py"],
+    "exit": 1,
+    "report": {"status":"mismatch","mode":"unchecked_hash","hash_match":false}
+  },
+  {
+    "name": "unsupported flag value",
+    "args": ["pyc_invalidation_audit.py", "examples/generated/invalid.pyc", "examples/sample.py"],
+    "exit": 2,
+    "report": {"status":"invalid"}
+  }
+]
